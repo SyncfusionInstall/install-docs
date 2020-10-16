@@ -29,6 +29,9 @@ In the License installer, licensed Syncfusion assemblies will be shipped and **L
 The assembly version format differs for each platform. Refer the following table for the assembly version’s format for ASP.NET Web Forms, ASP.NET MVC (Essential JS 1), ASP.NET MVC (Essential JS 2), JavaScript (Essential JS 1), WPF, Windows Forms, UWP, WinUI and Xamarin platforms.
 
 
+Added extra content
+
+
 
 <table>
 <tr>

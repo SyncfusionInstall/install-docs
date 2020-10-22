@@ -1,5 +1,5 @@
 ---
-layout: post  
+layout: post
 title: Add-on of Essential Studio Installer | Syncfusion
 description: Learn here some information about the Add-On of Syncfusion Essential Studio Installer and more details.
 platform: common

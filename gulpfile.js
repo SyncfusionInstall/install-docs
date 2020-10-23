@@ -25,24 +25,7 @@ gulp.task('ship-to-gitlap', function (done) {
     console.log('--changes----' + changes);
     
     var changedFileNames = changes.stdout.split('\n');
-    console.log('--changedFileNames----' + changedFileNames);
-    
-    console.log('--is_temp----' + is_temp);
-    
-    var cloneRepos = [];
-    for (var i = 0; i < changedFileNames.length; i++) {
-        var curentRootRepo = changedFileNames[i].split('/')[1];
-//         if(curentRootRepo !='workflows'){
-//             return
-//            }
-        if (curentRootRepo != undefined && curentRootRepo !='workflows') {
-            cloneRepos.push(curentRootRepo);
-        }
-    }
-    
-    console.log('--cloneRepos----' + cloneRepos);    
-    
-    for (var j = 0; j < cloneRepos.length; j++) {
+    console.log('--changedFileNames----' + changedFileNames);    
         var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
         console.log('Clone has been started...!');
         var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `./gitlapRepo/install-docs`, {
@@ -54,6 +37,7 @@ gulp.task('ship-to-gitlap', function (done) {
             return;
         } else {
             console.log('Clone has been completed...!');
+            // update src from github to gitlap - replace files from cloed repo
             shelljs.cp('-rf', `./src/${cloneRepos[j]}/*`, `./gitlapRepo/install-docs/src`);
             shelljs.cd(`./gitlapRepo/install-docs`);
             shelljs.exec('git add .');
@@ -62,7 +46,6 @@ gulp.task('ship-to-gitlap', function (done) {
             shelljs.exec('git push');
             shelljs.cd('../../')
         }
-    }
 })
 
 /**

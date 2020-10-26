@@ -1,4 +1,4 @@
-node('content')
+node('200.90')
 { 
 timestamps
   {
@@ -39,7 +39,7 @@ String platform='Install';
 		    }
 			 
 		   //Checkout the ug_spellchecker from development Source
-	  checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ug_spellchecker']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: env.gitlabCredentialId, url: 'https://gitlab.syncfusion.com/content/ug_spellchecker.git']]])
+	  checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ug_spellchecker']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: env.gitlabCredentialId, url: 'https://gitlab.syncfusion.com/testgroup/ug_spellchecker.git']]])
 		 
 	  }
 	}
@@ -71,6 +71,28 @@ if(currentBuild.result != 'FAILURE')
 		currentBuild.result = 'FAILURE'
     }
 }	
+if(currentBuild.result != 'FAILURE')
+{ 
+	stage 'Move Source Gitlab to Github'
+	try
+	{
+	    gitlabCommitStatus("Build")
+		{
+		bat 'powershell.exe -ExecutionPolicy ByPass -File '+env.WORKSPACE+"/ug_spellchecker/build.ps1 -Script "+env.WORKSPACE+"/ug_spellchecker/build.cake -Target build -Platform \""+platform+"\" -Targetbranch "+env.gitlabTargetBranch+" -Branch "+'"'+env.gitlabSourceBranch+'"'
+	 	}
+	 	
+	 	def files = findFiles(glob: '**/cireports/errorlogs/*.txt')
+ 
+        if(files.size() > 0)
+        {
+           currentBuild.result = 'FAILURE'
+        }
+    }
+	 catch(Exception e) 
+    {
+		currentBuild.result = 'FAILURE'
+    }
+}
 
 	stage 'Delete Workspace'
 	
@@ -80,6 +102,8 @@ if(currentBuild.result != 'FAILURE')
     { 		
          archiveArtifacts artifacts: 'cireports/', excludes: null 	 
     }
-	    step([$class: 'WsCleanup'])	}
+	   // step([$class: 'WsCleanup'])	
+		
+		}
 	    }
 }

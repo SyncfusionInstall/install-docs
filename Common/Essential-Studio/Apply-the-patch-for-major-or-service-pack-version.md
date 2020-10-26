@@ -5,7 +5,7 @@ description: Learn here about how to apply the patch for major or service pack v
 platform: common
 control: Essential Studio
 documentation: ug
----
+---  
 
 # Apply the Patch for Major or Service Pack Version
 

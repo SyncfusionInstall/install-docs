@@ -72,7 +72,7 @@ gulp.task('lint', function (done) {
             console.log('\n*** Markdown Lint Succeeded ***\n');
             done();
         }
-    });
+    }); 
 });
 
 // Controls List

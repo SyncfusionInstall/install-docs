@@ -42,12 +42,9 @@ gulp.task('ship-to-gitlap', function (done) {
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{
 				 console.log('changes...!' +changedFileNames[i]);
-                shelljs.cp('-rf', `../install-docs/{changedFileNames[i]}`, `./gitlapRepo/install-docs/{changedFileNames[i]}`)
+                shelljs.cp('-rf', `../install-docs/`+changedFileNames[i], `./gitlapRepo/install-docs/`+changedFileNames[i])
             } 
-            
             shelljs.cd(`./gitlapRepo/install-docs`);
-			shelljs.rm('-rf',`./gitlapRepo/install-docs/node_modules`);
-			shelljs.exec('git clean -xdf');
             shelljs.exec('git add .');
             shelljs.exec('git pull');
             shelljs.exec('git commit -m \"source updation from github repo [ci skip]\" --no-verify');

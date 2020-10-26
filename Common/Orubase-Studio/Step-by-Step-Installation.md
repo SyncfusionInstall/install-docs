@@ -4,7 +4,7 @@ title: Step by Step Installation | common | Syncfusion
 description: step-by-step installation
 platform: common
 control: Control Name undefined
-documentation: ug
+documentation: ug 
 ---
 
 # Step-by-Step Installation

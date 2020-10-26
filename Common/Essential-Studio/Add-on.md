@@ -5,7 +5,7 @@ description: Learn here some information about the Add-On of Syncfusion Essentia
 platform: common
 control: Essential Studio
 documentation: ug
----
+--- 
 
 # Add-On Installer of Syncfusion Essential Studio 
 

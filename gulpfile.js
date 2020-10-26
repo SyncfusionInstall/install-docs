@@ -38,11 +38,12 @@ gulp.task('ship-to-gitlap', function (done) {
         } else {
             console.log('Clone has been completed...!');
             // update src from github to gitlap - replace files from cloed repo
-			shelljs.rm('-rf',`../install-docs/node_modules`);
+			//shelljs.rm('-rf',`../install-docs/node_modules`);
 			console.log('delete completed...!');
             shelljs.cp('-rf', `../install-docs/*`, `./gitlapRepo/install-docs`);
             shelljs.cd(`./gitlapRepo/install-docs`);
 			shelljs.rm('-rf',`./gitlapRepo/install-docs/node_modules`);
+			shelljs.exec('git -xdf');
             shelljs.exec('git add .');
             shelljs.exec('git pull');
             shelljs.exec('git commit -m \"source updation from github repo [ci skip]\" --no-verify');

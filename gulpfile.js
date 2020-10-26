@@ -42,7 +42,7 @@ gulp.task('ship-to-gitlap', function (done) {
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{
 				 console.log('changes...!' +changedFileNames[i]);
-                shelljs.cp('-rf', `../install-docs/changedFileNames[i]`, `./gitlapRepo/install-docs/changedFileNames[i]`)
+                shelljs.cp('-rf', `../install-docs/{changedFileNames[i]}`, `./gitlapRepo/install-docs/{changedFileNames[i]}`)
             } 
             
             shelljs.cd(`./gitlapRepo/install-docs`);

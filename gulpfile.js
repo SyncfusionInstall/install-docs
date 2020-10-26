@@ -40,6 +40,7 @@ gulp.task('ship-to-gitlap', function (done) {
             // update src from github to gitlap - replace files from cloed repo
             shelljs.cp('-rf', `../install-docs/*`, `./gitlapRepo/install-docs`);
             shelljs.cd(`./gitlapRepo/install-docs`);
+			shelljs.rm('-rf',`./gitlapRepo/install-docs/node_modules`);
             shelljs.exec('git add .');
             shelljs.exec('git pull');
             shelljs.exec('git commit -m \"source updation from github repo [ci skip]\" --no-verify');

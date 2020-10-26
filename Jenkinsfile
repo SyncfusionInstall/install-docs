@@ -1,4 +1,4 @@
-node('content')
+node('200.90')
 { 
 timestamps
   {
@@ -39,7 +39,7 @@ String platform='Install';
 		    }
 			 
 		   //Checkout the ug_spellchecker from development Source
-	  checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ug_spellchecker']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: env.gitlabCredentialId, url: 'https://gitlab.syncfusion.com/content/ug_spellchecker.git']]])
+	  checkout([$class: 'GitSCM', branches: [[name: '*/development']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ug_spellchecker']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: env.gitlabCredentialId, url: 'https://gitlab.syncfusion.com/testgroup/ug_spellchecker.git']]])
 		 
 	  }
 	}
@@ -72,6 +72,7 @@ if(currentBuild.result != 'FAILURE')
     }
 }	
 
+
 	stage 'Delete Workspace'
 	
 		def files = findFiles(glob: '**/cireports/spellcheck/*.*')      
@@ -80,6 +81,8 @@ if(currentBuild.result != 'FAILURE')
     { 		
          archiveArtifacts artifacts: 'cireports/', excludes: null 	 
     }
-	    step([$class: 'WsCleanup'])	}
+	    step([$class: 'WsCleanup'])	
+		
+		}
 	    }
 }

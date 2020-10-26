@@ -1,6 +1,6 @@
 # Documentation Guidelines
-
-This section contains guidelines on naming files, sections, documents and other document elements. 
+  
+This section contains guidelines on naming files, sections, documents and other document elements.
 
 > **NOTE**: Some of the items are marked as TODO which will be documented later.
 

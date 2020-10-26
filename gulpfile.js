@@ -38,7 +38,7 @@ gulp.task('ship-to-gitlap', function (done) {
         } else {
             console.log('Clone has been completed...!');
             // update src from github to gitlap - replace files from cloed repo
-            shelljs.cp('-rf', `./work/install-docs/install-docs/*`, `./gitlapRepo/install-docs`);
+            shelljs.cp('-rf', `/install-docs/*`, `./gitlapRepo/install-docs`);
             shelljs.cd(`./gitlapRepo/install-docs`);
             shelljs.exec('git add .');
             shelljs.exec('git pull');

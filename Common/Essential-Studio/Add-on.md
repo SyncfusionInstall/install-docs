@@ -1,12 +1,12 @@
 ---
-layout: post 
+layout: post  test
 title: Add-on of Essential Studio Installer | Syncfusion
 description: Learn here some information about the Add-On of Syncfusion Essential Studio Installer and more details.
 platform: common
 control: Essential Studio
 documentation: ug
 --- 
-
+  
 # Add-On Installer of Syncfusion Essential Studio 
 
 ## QTP Add-on

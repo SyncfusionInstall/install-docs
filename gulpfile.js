@@ -2,6 +2,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var glob = require('glob');
 var shelljs = require('shelljs');
+var path = require('path');
 
 var components;
 var compPaths = glob.sync(`./src/**/`, { silent: true, ignore: [`./src/base/`, `./src/`, './src/common/', './src/getting-started/'] });
@@ -38,7 +39,7 @@ gulp.task('ship-to-gitlap', function (done) {
         } else {
             console.log('Clone has been completed...!');
             // update src from github to gitlap - replace files from cloed repo
-			var rootDir = '../../gitlapRepo/install-docs';
+			var rootDir = path.resolve('../../gitlapRepo/install-docs');
 			console.log('Directory...!' + rootDir);
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{

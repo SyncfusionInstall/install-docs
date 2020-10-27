@@ -29,7 +29,7 @@ gulp.task('ship-to-gitlap', function (done) {
     console.log('--changedFileNames----' + changedFileNames);    
         var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
         console.log('Clone has been started...!');
-        var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `../../gitlapRepo/install-docs`, {
+        var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `../../../gitlapRepo/install-docs`, {
             silent: false
         });
         if (clone.code !== 0) {
@@ -46,9 +46,9 @@ gulp.task('ship-to-gitlap', function (done) {
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{
 				 console.log('changes...!' +changedFileNames[i]);
-                shelljs.cp('-rf', `../install-docs/`+changedFileNames[i], `../../gitlapRepo/install-docs/`+changedFileNames[i])
+                shelljs.cp('-rf', `../install-docs/`+changedFileNames[i], `../../../gitlapRepo/install-docs/`+changedFileNames[i])
             } 
-            shelljs.cd(`../../gitlapRepo/install-docs`);
+            shelljs.cd(`../../../gitlapRepo/install-docs`);
             shelljs.exec('git add .');
             shelljs.exec('git pull');
             shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');

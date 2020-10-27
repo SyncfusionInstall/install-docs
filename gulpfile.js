@@ -42,6 +42,7 @@ gulp.task('ship-to-gitlap', function (done) {
 			var rootDir = path.resolve('../../gitlapRepo/install-docs');
 			var rootDir2 = path.resolve('../install-docs');
 			console.log('Directory...!' + rootDir);
+			console.log('Directory...!' + rootDir2);
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{
 				 console.log('changes...!' +changedFileNames[i]);

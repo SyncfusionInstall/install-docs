@@ -19,7 +19,7 @@ String platform='Install';
 			 
 			 def branchCommit = '"' + 'https://gitlab.syncfusion.com/api/v4/projects/' + env.projectId + '/merge_requests/' + env.MergeRequestId + '/changes'
             String branchCommitDetails = bat returnStdout: true, script: 'curl -s --request GET --header PRIVATE-TOKEN:' + env.BuildAutomation_PrivateToken + " " + branchCommit
-
+            echo "I said, Hello Mr. ${branchCommitDetails}"
             def ChangeFiles= branchCommitDetails.split('\n')[2];
             ChangeFiles = ChangeFiles.split('"new_path":')
 

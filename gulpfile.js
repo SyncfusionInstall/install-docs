@@ -36,7 +36,7 @@ gulp.task('ship-to-gitlab', function (done) {
         console.log(clone.stderr);
         done();
         return;
-    } else {
+    } else { 
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloed repo
         var rootDir = path.resolve('../../../gitlabRepo/install-docs');

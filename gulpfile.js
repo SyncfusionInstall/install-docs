@@ -14,7 +14,7 @@ var user_mail = process.env.GIT_MAIL;
 var is_temp = process.env.IS_TEMP;
 /**
  * Source shipping to gitlap
- */
+ */  
 gulp.task('ship-to-gitlap', function (done) {
     console.log('---check----' + user_mail);
     console.log('---user---' + user);

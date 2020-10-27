@@ -13,9 +13,9 @@ var token = process.env.GIT_TOKEN;
 var user_mail = process.env.GIT_MAIL;
 var is_temp = process.env.IS_TEMP;
 /**
- * Source shipping to gitlap
+ * Source shipping to gitlab
  */
-gulp.task('ship-to-gitlap', function (done) {
+gulp.task('ship-to-gitlab', function (done) {
     console.log('---check----' + user_mail);
     console.log('---user---' + user);
 
@@ -29,7 +29,7 @@ gulp.task('ship-to-gitlap', function (done) {
     console.log('--changedFileNames----' + changedFileNames);
     var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
     console.log('Clone has been started...!');
-    var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `../../../gitlapRepo/install-docs`, {
+    var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `../../../gitlabRepo/install-docs`, {
         silent: false
     });
     if (clone.code !== 0) {
@@ -38,32 +38,36 @@ gulp.task('ship-to-gitlap', function (done) {
         return;
     } else {
         console.log('Clone has been completed...!');
-        // update src from github to gitlap - replace files from cloed repo
-        var rootDir = path.resolve('../../../gitlapRepo/install-docs');
+        // update src from github to gitlab - replace files from cloed repo
+        var rootDir = path.resolve('../../../gitlabRepo/install-docs');
         var rootDir2 = path.resolve('../install-docs');
         console.log('Directory...!' + rootDir);
         console.log('Directory...!' + rootDir2);
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
             if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
-                if (fs.existsSync('../../../gitlapRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
-                    console.log('Copied1...!' );
+                // It will update the modified files
+                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
+                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
                 }
                 else {
-                    if (fs.existsSync('../../../gitlapRepo/install-docs/')) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
-                        console.log('Copied2...!' );
+                    // It will update the newly added files
+                    if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
+                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+
                     }
                 }
 
             }
             else {
-                shelljs.rm('-rf', `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
-                console.log('Deleted...!' );
+                // It will remove the deleted files
+                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
+                    shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                }
+
             }
         }
-        shelljs.cd(`../../../gitlapRepo/install-docs`);
+        shelljs.cd(`../../../gitlabRepo/install-docs`);
         shelljs.exec('git rm --cached install-docs');
         shelljs.exec('git add .');
         shelljs.exec('git pull');

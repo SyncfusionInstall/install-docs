@@ -1,5 +1,5 @@
 ## Style Guide
-
+                   
 ### General guidelines
 * Remember that no documentation is better than poor quality documentation.
 * Also, remember that "Less is more" when it comes to technical documentation.

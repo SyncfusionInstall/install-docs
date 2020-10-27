@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var glob = require('glob');
 var shelljs = require('shelljs');
 var path = require('path');
- 
+  
 var components;
 var compPaths = glob.sync(`./src/**/`, { silent: true, ignore: [`./src/base/`, `./src/`, './src/common/', './src/getting-started/'] });
 

@@ -38,7 +38,7 @@ gulp.task('ship-to-gitlap', function (done) {
         } else {
             console.log('Clone has been completed...!');
             // update src from github to gitlap - replace files from cloed repo
-			var rootDir = path.resolve('../../gitlapRepo/install-docs');
+			var rootDir = '../../gitlapRepo/install-docs';
 			console.log('Directory...!' + rootDir);
 			for (var i = 0; i < changedFileNames.length; i++) 
 			{

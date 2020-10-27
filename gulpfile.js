@@ -49,7 +49,7 @@ gulp.task('ship-to-gitlap', function (done) {
                 shelljs.cp('-rf', `../install-docs/`+changedFileNames[i], `../../../gitlapRepo/install-docs/`+changedFileNames[i])
             } 
             shelljs.cd(`../../../gitlapRepo/install-docs`);
-            shelljs.exec('git add .');
+            shelljs.exec('git add install-docs/');
             shelljs.exec('git pull');
             shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
             shelljs.exec('git push');

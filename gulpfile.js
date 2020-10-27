@@ -34,7 +34,7 @@ gulp.task('ship-to-gitlap', function (done) {
         });
         if (clone.code !== 0) {
             console.log(clone.stderr);
-            done();
+            done(); 
             return;
         } else {
             console.log('Clone has been completed...!');

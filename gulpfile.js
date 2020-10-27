@@ -47,17 +47,20 @@ gulp.task('ship-to-gitlap', function (done) {
             console.log('changes...!' + changedFileNames[i]);
             if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
                 if (fs.existsSync('../../../gitlapRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i])
+                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
+                    console.log('Copied1...!' );
                 }
                 else {
                     if (fs.existsSync('../../../gitlapRepo/install-docs/')) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i])
+                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
+                        console.log('Copied2...!' );
                     }
                 }
 
             }
             else {
-                shelljs.rm('-rf', `../../../gitlapRepo/install-docs/` + changedFileNames[i])
+                shelljs.rm('-rf', `../../../gitlapRepo/install-docs/` + changedFileNames[i]);
+                console.log('Deleted...!' );
             }
         }
         shelljs.cd(`../../../gitlapRepo/install-docs`);

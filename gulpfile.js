@@ -100,7 +100,7 @@ gulp.task('lint', function (done) {
 });
 
 // Controls List
-function controlsList() {
+function controlsList() { 
     var controls = '**';
     if (true) {
         var ret = '';

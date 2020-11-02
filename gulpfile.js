@@ -63,7 +63,7 @@ gulp.task('ship-to-gitlab', function (done) {
 
             }
         }
-		shelljs.rm('-rf .git');
+		shelljs.rm('-rf' `../install-docs/.git');
         shelljs.cd(`../../../gitlabRepo/install-docs`);
         shelljs.exec('git add .');
         shelljs.exec('git pull');

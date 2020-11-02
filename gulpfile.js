@@ -35,18 +35,21 @@ gulp.task('ship-to-gitlab', function (done) {
     } else { 
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloed repo
-	    console.log('changes...Testing!' + changedFileNames);
+        var rootDir = path.resolve('../../../gitlabRepo/install-docs');
+        var rootDir2 = path.resolve('../install-docs');
+        console.log('Directory...!' + rootDir);
+        console.log('Directory...!' + rootDir2);
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
-            if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
+            if (fs.existsSync('./install-docs/' + changedFileNames[i])) {
                 // It will update the modified files
                 if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
+                    shelljs.cp('-rf', `./install-docs/` + changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
                 }
                 else {
                     // It will update the newly added files
                     if (fs.existsSync('./gitlabRepo/install-docs/')) {
-                        shelljs.cp('-rf', changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
+                        shelljs.cp('-rf', `./install-docs/` + changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
 
                     }
                 }

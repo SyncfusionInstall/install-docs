@@ -35,7 +35,7 @@ gulp.task('ship-to-gitlab', function (done) {
     } else { 
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloed repo
-        var rootDir = path.resolve('../../../gitlabRepo/install-docs');
+        var rootDir = path.resolve('./gitlabRepo/install-docs');
         var rootDir2 = path.resolve('../install-docs');
         console.log('Directory...!' + rootDir);
         console.log('Directory...!' + rootDir2);
@@ -64,7 +64,7 @@ gulp.task('ship-to-gitlab', function (done) {
             }
         }
 		
-        shelljs.cd(`./gitlabRepo/install-docs`);
+        shelljs.cd('./gitlabRepo/install-docs');
 	console.log('Git Add started...!' );
         shelljs.exec('git add .');
 	console.log('Git Add Ended...!' );

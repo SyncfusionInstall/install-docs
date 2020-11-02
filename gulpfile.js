@@ -3,10 +3,6 @@ var gulp = require('gulp');
 var glob = require('glob');
 var shelljs = require('shelljs');
 var path = require('path');
-
-var components;
-var compPaths = glob.sync(`./src/**/`, { silent: true, ignore: [`./src/base/`, `./src/`, './src/common/', './src/getting-started/'] });
-
 var branch = 'master';
 var user = process.env.GIT_USER;
 var token = process.env.GIT_TOKEN;
@@ -77,42 +73,7 @@ gulp.task('ship-to-gitlab', function (done) {
     }
 })
 
-/**
- * Lint md files in src location
- */
-gulp.task('lint', function (done) {
-    var markdownlint = require('markdownlint');
-    components = controlsList();
-    var options = {
-        files: glob.sync('./src/' + components + '/*.md', { ignore: ['./src/**/api*.md', './src/summary.md', './src/release-notes/*.md'] }),
-        config: require('./.markdownlint.json')
-    };
-    markdownlint(options, function (result, err) {
-        if (err && err.toString().length) {
-            console.error(err.toString());
-            done();
-            process.exit(1);
-        } else {
-            console.log('\n*** Markdown Lint Succeeded ***\n');
-            done();
-        }
-    });
-});
 
-// Controls List
-function controlsList() { 
-    var controls = '**';
-    if (true) {
-        var ret = '';
-        for (var comp of compPaths) {
-            ret += comp.replace(/.\/src\//g, '') + '**/,';
-        }
-        return '{' + ret + '}';
-    }
-    else if (fs.existsSync('./controlsList.txt')) {
-        controls = fs.readFileSync('./controlsList.txt', 'utf8');
-        controls = '{' + controls + ',}';
-    }
-    return controls;
-}
+
+
 

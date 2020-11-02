@@ -63,9 +63,11 @@ gulp.task('ship-to-gitlab', function (done) {
 
             }
         }
-		shelljs.rm('-rf', `../install-docs/.git`);
+		
         shelljs.cd(`../../../gitlabRepo/install-docs`);
+		console.log('Git Add started...!' );
         shelljs.exec('git add .');
+		console.log('Git Add Ended...!' );
         shelljs.exec('git pull');
         shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
         shelljs.exec('git push');

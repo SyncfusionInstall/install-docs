@@ -41,7 +41,7 @@ gulp.task('ship-to-gitlab', function (done) {
             if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
                 // It will update the modified files
                 if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
                 }
                 else {
                     // It will update the newly added files

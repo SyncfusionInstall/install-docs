@@ -53,7 +53,7 @@ gulp.task('ship-to-gitlab', function (done) {
 
                     }
                 }
-
+ 
             }
             else {
                 // It will remove the deleted files

@@ -25,7 +25,7 @@ gulp.task('ship-to-gitlab', function (done) {
     console.log('--changedFileNames----' + changedFileNames);
     var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
     console.log('Clone has been started...!');
-    var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `../../../gitlabRepo/install-docs`, {
+    var clone = shelljs.exec('git clone ' + gitPath + ' -b ' + branch + ' ' + `./gitlabRepo/install-docs`, {
         silent: false
     });
     if (clone.code !== 0) {
@@ -35,21 +35,18 @@ gulp.task('ship-to-gitlab', function (done) {
     } else { 
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloed repo
-        var rootDir = path.resolve('../../../gitlabRepo/install-docs');
-        var rootDir2 = path.resolve('../install-docs');
-        console.log('Directory...!' + rootDir);
-        console.log('Directory...!' + rootDir2);
+	    console.log('changes...Testing!' + changedFileNames);
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
-            if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
+            if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
                 // It will update the modified files
-                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
+                if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
                     shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
                 }
                 else {
                     // It will update the newly added files
-                    if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                    if (fs.existsSync('./gitlabRepo/install-docs/')) {
+                        shelljs.cp('-rf', changedFileNames[i], `./gitlabRepo/install-docs/` + changedFileNames[i]);
 
                     }
                 }
@@ -57,21 +54,21 @@ gulp.task('ship-to-gitlab', function (done) {
             }
             else {
                 // It will remove the deleted files
-                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                if (fs.existsSync('./gitlabRepo/install-docs/' + changedFileNames[i])) {
+                    shelljs.rm('-rf', `./gitlabRepo/install-docs/` + changedFileNames[i]);
                 }
 
             }
         }
 		
-        shelljs.cd(`../../../gitlabRepo/install-docs`);
-		console.log('Git Add started...!' );
+        shelljs.cd(`./gitlabRepo/install-docs`);
+	console.log('Git Add started...!' );
         shelljs.exec('git add .');
-		console.log('Git Add Ended...!' );
+	console.log('Git Add Ended...!' );
         shelljs.exec('git pull');
         shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
         shelljs.exec('git push');
-        shelljs.cd('../../')
+        shelljs.cd('../../');
     }
 })
 

@@ -64,7 +64,7 @@ gulp.task('ship-to-gitlab', function (done) {
             }
         }
 		
-        shelljs.cd(`../gitlabRepo/install-docs`);
+        shelljs.cd(rootDir);
 	    console.log('Git Add started...!' );
         shelljs.exec('git add .');
 	    console.log('Git Add Ended...!' );

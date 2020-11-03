@@ -38,22 +38,20 @@ gulp.task('ship-to-gitlab', function (done) {
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloned repo
 
-        for (var i = 0; i < changedFileNames.length; i++) {
-            console.log('changes...!' + changedFileNames[i]);
-
-
-            if (changedFileNames[i] !== null && changedFileNames[i] !== '') {
-                console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileNames[i]));
-                if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
+        for (var changedFileName of changedFileNames) {
+            console.log('changes...!' + changedFileName);
+            if (changedFileName !== null && changedFileName!== '') {
+                console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileName));
+                if (fs.existsSync('../install-docs/' + changedFileName)) {
                     // It will update the modified files
                     if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                        shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
                         console.log('Copied...!');
                     }
                     else {
                         // It will update the newly added files
                         if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
-                            shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                            shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
                             console.log('Copied1...!');
 
                         }
@@ -62,8 +60,8 @@ gulp.task('ship-to-gitlab', function (done) {
                 }
                 else {
                     // It will remove the deleted files
-                    if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                        shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                    if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileName)) {
+                        shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileName);
                         console.log('Deleted...!');
                     }
                 }
@@ -90,7 +88,7 @@ function changedFileNameList() {
 
     for (var comp of changesList)
     {
-        controls += comp.replace(/\s/g, "");
+        controls += comp.replace('M'+/\s/g, "").replace('A'+/\s/g, "");
         console.log('Controls...!' +controls);
     }
     return controls;

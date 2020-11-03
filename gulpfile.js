@@ -44,14 +44,14 @@ gulp.task('ship-to-gitlab', function (done) {
                 console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileName));
                 if (fs.existsSync('../install-docs/' + changedFileName)) {
                     // It will update the modified files
-                    if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                    if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileName)) {
+                        shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileName);
                         console.log('Copied...!');
                     }
                     else {
                         // It will update the newly added files
                         if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
-                            shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                            shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileName);
                             console.log('Copied1...!');
 
                         }

@@ -38,7 +38,7 @@ gulp.task('ship-to-gitlab', function (done) {
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloned repo
 
-        for (var changedFileName of changedFileNames) {
+        for (var changedFileName of changedFileNames.split(/\s+/g)) {
             console.log('changes...!' + changedFileName);
             if (changedFileName !== null && changedFileName!== '') {
                 console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileName));

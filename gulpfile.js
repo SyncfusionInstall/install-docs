@@ -33,7 +33,7 @@ gulp.task('ship-to-gitlab', function (done) {
     if (clone.code !== 0) {
         console.log(clone.stderr);
         done();
-        return;
+        return; 
     } else {
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloned repo

@@ -21,7 +21,7 @@ margin-top: 1.5em;     margin-bottom: 1.5em;
     background-color: #def8ff;
     padding: 10px 17px 14px;
 }
-</style>
+</style> 
 
 <div id="license">
 From the 2018 Volume 2 release, each Essential Studio platform has separate Syncfusion Control Panel. You can launch the Syncfusion Control Panel either from <b>Desktop Shortcut</b> or <b>Start Menu->Syncfusion Control Panel {version}</b>

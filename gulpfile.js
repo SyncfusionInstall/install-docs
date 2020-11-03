@@ -30,60 +30,59 @@ gulp.task('ship-to-gitlab', function (done) {
     });
     if (clone.code !== 0) {
         console.log(clone.stderr);
-        done();	
+        done();
         return;
-    } else { 
+    } else {
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloned repo
-       
+
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
-			
-		   var changedFileNames1 = changedFileNames[i].split('\n');
-		   for(var j = 0; j < changedFileNames1.length; i++) {
-			   console.log('File before...!' + changedFileNames1[i]);
-			changedFileNames[j]=changedFileNames[j].replace(/\s/g, "");
-			console.log('File after...!' + changedFileNames1[i]);
-			if(changedFileNames1[i] !== null && changedFileNames1[i] !== '' && changedFileNames1[i] !== 'R100' && changedFileNames1[i] !== 'M'&& changedFileNames1[i] !== 'A')
-			{
-			console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileNames[i]));
-            if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
-                // It will update the modified files
-                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
-					console.log('Copied...!' );
-                }
-                else {
-                    // It will update the newly added files
-                    if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
-                        shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
-						console.log('Copied1...!' );
+
+            var changedFileNames1 = changedFileNames[i].split(' ');
+            for (var j = 0; j < changedFileNames1.length; i++) {
+                console.log('File before...!' + changedFileNames1[i]);
+                changedFileNames[j] = changedFileNames[j].replace(/\s/g, "");
+                console.log('File after...!' + changedFileNames1[i]);
+                if (changedFileNames1[i] !== null && changedFileNames1[i] !== '' && changedFileNames1[i] !== 'R100' && changedFileNames1[i] !== 'M' && changedFileNames1[i] !== 'A') {
+                    console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileNames[i]));
+                    if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
+                        // It will update the modified files
+                        if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
+                            shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                            console.log('Copied...!');
+                        }
+                        else {
+                            // It will update the newly added files
+                            if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
+                                shelljs.cp('-rf', `../install-docs/` + changedFileNames[i], `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                                console.log('Copied1...!');
+
+                            }
+                        }
 
                     }
-                }
- 
-            }
-            else {
-                // It will remove the deleted files
-                if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
-                    shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
-					console.log('Deleted...!' );
-                }
-			}
+                    else {
+                        // It will remove the deleted files
+                        if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
+                            shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileNames[i]);
+                            console.log('Deleted...!');
+                        }
+                    }
 
+                }
             }
-			}
         }
-		
+
         shelljs.cd(`../../../gitlabRepo/install-docs`);
-		console.log('Git Add started...!' );
+        console.log('Git Add started...!');
         shelljs.exec('git add .');
-		console.log('Git Add Ended...!' );
+        console.log('Git Add Ended...!');
         shelljs.exec('git pull');
         shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
         shelljs.exec('git push');
         shelljs.cd('../../');
-    }  
+    }
 })
 
 

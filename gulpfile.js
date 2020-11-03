@@ -39,7 +39,7 @@ gulp.task('ship-to-gitlab', function (done) {
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
 
-            var changedFileNames1 = changedFileNames[i].split(' ');
+            var changedFileNames1 = changedFileNames[i].split('\n');
             for (var j = 0; j < changedFileNames1.length; i++) {
                 console.log('File before...!' + changedFileNames1[i]);
                 changedFileNames[j] = changedFileNames[j].replace(/\s/g, "");

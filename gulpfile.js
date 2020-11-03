@@ -85,10 +85,10 @@ gulp.task('ship-to-gitlab', function (done) {
 function changedFileNameList() {
     var controls = '';
     var changesList = changes.stdout.split('\n');
-
+    //var changesList = 'A	Common/Essential-Studio/Release-notes/v18.3.0.42.md';
     for (var comp of changesList)
     {
-        controls += comp.replace('M'+/\s/g, "").replace('A'+/\s/g, "");
+        controls += comp.replace(/A\s+/g, "").replace(/M\s+/g, "").replace(/R100\s+/g, "").split(/\s+/g);
         console.log('Controls...!' +controls);
     }
     return controls;

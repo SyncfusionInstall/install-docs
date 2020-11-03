@@ -37,14 +37,11 @@ gulp.task('ship-to-gitlab', function (done) {
                     // It will update the modified files
                     if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileName)) {
                         shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileName);
-                        console.log('Copied...!');
                     }
                     else {
                         // It will update the newly added files
                         if (fs.existsSync('../../../gitlabRepo/install-docs/')) {
                             shelljs.cp('-rf', `../install-docs/` + changedFileName, `../../../gitlabRepo/install-docs/` + changedFileName);
-                            console.log('Copied1...!');
-
                         }
                     }
 
@@ -53,7 +50,7 @@ gulp.task('ship-to-gitlab', function (done) {
                     // It will remove the deleted files
                     if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileName)) {
                         shelljs.rm('-rf', `../../../gitlabRepo/install-docs/` + changedFileName);
-                        console.log('Deleted...!');
+                                               
                     }
                 }
 
@@ -62,9 +59,7 @@ gulp.task('ship-to-gitlab', function (done) {
         }
 
         shelljs.cd(`../../../gitlabRepo/install-docs`);
-        console.log('Git Add started...!');
         shelljs.exec('git add .');
-        console.log('Git Add Ended...!');
         shelljs.exec('git pull');
         shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
         shelljs.exec('git push');
@@ -82,7 +77,6 @@ function changedFileNameList() {
     if (changesList !== null && changesList !== '') {
         for (var comp of changesList) {
             controls += comp.replace(/A\s+/g, "").replace(/M\s+/g, "").replace(/D\s+/g, "").replace(/R100\s+/g, "").split(/\s+/g) + ',';
-            console.log('Controls...!' + controls);
         }
         return controls;
     }

@@ -78,7 +78,7 @@ gulp.task('ship-to-gitlab', function (done) {
         shelljs.exec('git commit -m \"source updation from github repo \" --no-verify');
         shelljs.exec('git push');
         shelljs.cd('../../');
-    }
+    }  
 })
 
 

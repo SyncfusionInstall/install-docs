@@ -41,9 +41,9 @@ gulp.task('ship-to-gitlab', function (done) {
 			
 		   var changedFileNames1 = changedFileNames[i].split('\n');
 		   for(var j = 0; j < changedFileNames1.length; i++) {
-			   console.log('File before...!' + changedFileNames1[i]));
+			   console.log('File before...!' + changedFileNames1[i]);
 			changedFileNames[j]=changedFileNames[j].replace(/\s/g, "");
-			console.log('File after...!' + changedFileNames1[i]));
+			console.log('File after...!' + changedFileNames1[i]);
 			if(changedFileNames1[i] !== null && changedFileNames1[i] !== '' && changedFileNames1[i] !== 'R100' && changedFileNames1[i] !== 'M'&& changedFileNames1[i] !== 'A')
 			{
 			console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileNames[i]));

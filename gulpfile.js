@@ -42,7 +42,7 @@ gulp.task('ship-to-gitlab', function (done) {
             console.log('changes...!' + changedFileNames[i]);
 
 
-            if (changedFileNames[i] !== null && changedFileNames[i] !== '' {
+            if (changedFileNames[i] !== null && changedFileNames[i] !== '') {
                 console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileNames[i]));
                 if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
                     // It will update the modified files

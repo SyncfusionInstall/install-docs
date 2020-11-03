@@ -91,7 +91,7 @@ function changedFileNameList() {
         controls += comp.replace(/A\s+/g, "").replace(/M\s+/g, "").replace(/D\s+/g, "").replace(/R100\s+/g, "").split(/\s+/g)+',';
         console.log('Controls...!' +controls);
     }
-    return controls;
+    return controls.trimEnd(',');
 }
 
 

@@ -41,6 +41,8 @@ gulp.task('ship-to-gitlab', function (done) {
         console.log('Directory...!' + rootDir2);
         for (var i = 0; i < changedFileNames.length; i++) {
             console.log('changes...!' + changedFileNames[i]);
+			if(changedFileNames[i] !== null && changedFileNames[i] !== '')
+			{
             if (fs.existsSync('../install-docs/' + changedFileNames[i])) {
                 // It will update the modified files
                 if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileNames[i])) {
@@ -65,6 +67,7 @@ gulp.task('ship-to-gitlab', function (done) {
                 }
 
             }
+			}
         }
 		
         shelljs.cd(`../../../gitlabRepo/install-docs`);

@@ -14,15 +14,6 @@ var changes;
  * Source shipping to gitlab
  */
 gulp.task('ship-to-gitlab', function (done) {
-    console.log('---check----' + user_mail);
-    console.log('---user---' + user);
-
-    shelljs.exec(`git config --global user.email "${user_mail}"`);
-    shelljs.exec(`git config --global user.name "${user}"`);
-
-    changes = shelljs.exec(`git diff --name-status HEAD^ HEAD`);
-    console.log('--changes----' + changes);
-
     changedFileNames = changedFileNameList();
     console.log('--changedFileNames----' + changedFileNames);
     var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
@@ -33,15 +24,15 @@ gulp.task('ship-to-gitlab', function (done) {
     if (clone.code !== 0) {
         console.log(clone.stderr);
         done();
-        return; 
+        return;
     } else {
         console.log('Clone has been completed...!');
         // update src from github to gitlab - replace files from cloned repo
 
         for (var changedFileName of changedFileNames.split(',')) {
-            console.log('changes...!' + changedFileName);
-            if (changedFileName !== null && changedFileName!== '') {
-                console.log('File Exists...!' + path.resolve('../install-docs/' + changedFileName));
+
+            if (changedFileName !== null && changedFileName !== '') {
+
                 if (fs.existsSync('../install-docs/' + changedFileName)) {
                     // It will update the modified files
                     if (fs.existsSync('../../../gitlabRepo/install-docs/' + changedFileName)) {
@@ -83,15 +74,18 @@ gulp.task('ship-to-gitlab', function (done) {
 
 // Controls List
 function changedFileNameList() {
+    shelljs.exec(`git config --global user.email "${user_mail}"`);
+    shelljs.exec(`git config --global user.name "${user}"`);
+    changes = shelljs.exec(`git diff --name-status HEAD^ HEAD`);
     var controls = '';
     var changesList = changes.stdout.split('\n');
-    //var changesList = 'A	Common/Essential-Studio/Release-notes/v18.3.0.42.md';
-    for (var comp of changesList)
-    {
-        controls += comp.replace(/A\s+/g, "").replace(/M\s+/g, "").replace(/D\s+/g, "").replace(/R100\s+/g, "").split(/\s+/g)+',';
-        console.log('Controls...!' +controls);
+    if (changesList !== null && changesList !== '') {
+        for (var comp of changesList) {
+            controls += comp.replace(/A\s+/g, "").replace(/M\s+/g, "").replace(/D\s+/g, "").replace(/R100\s+/g, "").split(/\s+/g) + ',';
+            console.log('Controls...!' + controls);
+        }
+        return controls;
     }
-    return controls.trimEnd(",");
 }
 
 

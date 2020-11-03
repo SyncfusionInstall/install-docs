@@ -18,7 +18,7 @@ gulp.task('ship-to-gitlab', function (done) {
     shelljs.exec(`git config --global user.email "${user_mail}"`);
     shelljs.exec(`git config --global user.name "${user}"`);
 
-    var changes = shelljs.exec(`git diff --name-only HEAD^ HEAD`);
+    var changes = shelljs.exec(`git diff --name-status HEAD^ HEAD`);
     console.log('--changes----' + changes);
 
     var changedFileNames = changes.stdout.split('\n');

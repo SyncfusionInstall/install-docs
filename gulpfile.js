@@ -7,13 +7,19 @@ var branch = 'master';
 var user = process.env.GIT_USER;
 var token = process.env.GIT_TOKEN;
 var user_mail = process.env.GIT_MAIL;
-var is_temp = process.env.IS_TEMP;
+var dbserver = process.env.DB_SERVER;
+var dbname = process.env.DB_NAME;
+var dbuser = process.env.DB_USER;
+var dbpassword = process.env.DB_PASSWORD;
+var dbport = process.env.DB_PORT;
 var changedFileNames;
 var changes;
+var releaseVersion=null;
 /**
  * Source shipping to gitlab
  */
 gulp.task('ship-to-gitlab', function (done) {
+	GetDetailsFromDB();
     changedFileNames = changedFileNameList();
     console.log('--changedFileNames----' + changedFileNames);
     var gitPath = 'https://' + user + ':' + token + `@gitlab.syncfusion.com/testgroup/install-docs`;
@@ -31,7 +37,7 @@ gulp.task('ship-to-gitlab', function (done) {
 
         for (var changedFileName of changedFileNames.split(',')) {
 
-            if (changedFileName !== null && changedFileName !== '') {
+            if (changedFileName !== null && changedFileName !== '' && changedFileName !== '.gitignore' && changedFileName !== 'Jenkinsfile' && !changedFileName.includes('.gitlab')) {
 
                 if (fs.existsSync('../install-docs/' + changedFileName)) {
                     // It will update the modified files
@@ -80,6 +86,31 @@ function changedFileNameList() {
         }
         return controls;
     }
+}
+
+function GetDetailsFromDB(){
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+        server: dbserver',
+        database: dbname,
+        user: dbuser',
+        password: dbpassword,
+        port: dbport
+
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+ var sqlQuery = "select top 1 BuildVersionName from buildVersion order by BuildVersionId DESC";
+                request.query(sqlQuery, function (err, result) {
+                    if (err) console.log(err)
+                    releaseVersion = result.recordset[0].BuildVersionName;
+                });
+console.log("releaseVersion!"+releaseVersion);
 }
 
 

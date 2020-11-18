@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var glob = require('glob');
 var shelljs = require('shelljs');
 var path = require('path');
+var mysql = require('mysql');
 var branch = 'master';
 var user = process.env.GIT_USER;
 var token = process.env.GIT_TOKEN;
@@ -89,7 +90,7 @@ function changedFileNameList() {
 }
 
 function GetDetailsFromDB(){
-var mysql = require('mysql');
+
 
 var con = mysql.createConnection({
         server: dbserver,

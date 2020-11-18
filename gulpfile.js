@@ -92,9 +92,9 @@ function GetDetailsFromDB(){
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-        server: dbserver',
+        server: dbserver,
         database: dbname,
-        user: dbuser',
+        user: dbuser,
         password: dbpassword,
         port: dbport
 
